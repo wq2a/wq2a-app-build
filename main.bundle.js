@@ -509,12 +509,12 @@ var Wq2aHttpInterceptor = /*@__PURE__*/ (function () {
         console.log("intercepted request ... ");
         // Clone the request to add the new header.
         req.body["ip"] = "172.17.0.7";
-        // const authReq = req.clone({ headers: req.headers.set("headerName", "headerValue")});
+        var authReq = req.clone({ headers: req.headers.set("Access-Control-Allow-Origin", "*") });
         console.log("Sending request with new header now ...");
         console.log(req);
         console.log(req.body);
         // send the newly created request
-        return next.handle(req).catch(function (error, caught) {
+        return next.handle(authReq).catch(function (error, caught) {
             //intercept the respons error and displace it to the console
             console.log("Error Occurred");
             console.log(error);
